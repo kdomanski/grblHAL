@@ -40,22 +40,22 @@
 #define STEP_TIMER_INDEX TIMER_0
 
 // Define step pulse output pins.
-#define X_STEP_PIN  GPIO_NUM_12
-#define Y_STEP_PIN  GPIO_NUM_14
-#define Z_STEP_PIN  GPIO_NUM_27
+#define X_STEP_PIN  GPIO_NUM_32
+#define Y_STEP_PIN  GPIO_NUM_34
+#define Z_STEP_PIN  GPIO_NUM_25
 
 // Define step direction output pins. NOTE: All direction pins must be on the same port.
-#define X_DIRECTION_PIN GPIO_NUM_26
-#define Y_DIRECTION_PIN GPIO_NUM_25
-#define Z_DIRECTION_PIN GPIO_NUM_33
+#define X_DIRECTION_PIN GPIO_NUM_4
+#define Y_DIRECTION_PIN GPIO_NUM_33
+#define Z_DIRECTION_PIN GPIO_NUM_27
 
 // Define stepper driver enable/disable output pin(s).
-#define STEPPERS_DISABLE_PIN    GPIO_NUM_13
+#define STEPPERS_DISABLE_PIN  GPIO_NUM_26
 
 // Define homing/hard limit switch input pins and limit interrupt vectors.
-#define X_LIMIT_PIN GPIO_NUM_2
-#define Y_LIMIT_PIN GPIO_NUM_4
-#define Z_LIMIT_PIN GPIO_NUM_15
+#define X_LIMIT_PIN GPIO_NUM_12
+#define Y_LIMIT_PIN GPIO_NUM_19
+#define Z_LIMIT_PIN GPIO_NUM_13
 
 #ifndef VFD_SPINDLE
 // Define spindle enable and spindle direction output pins.
@@ -70,16 +70,16 @@
 #define COOLANT_MIST_PIN    GPIO_NUM_21
 
 // Define user-control CONTROLs (cycle start, reset, feed hold) input pins.
-#define RESET_PIN       GPIO_NUM_34
+#define RESET_PIN       GPIO_NUM_22
 #define FEED_HOLD_PIN   GPIO_NUM_36
 #define CYCLE_START_PIN GPIO_NUM_39
 #ifdef ENABLE_SAFETY_DOOR_INPUT_PIN
-#define SAFETY_DOOR_PIN GPIO_NUM_35
+#define SAFETY_DOOR_PIN GPIO_NUM_37
 #endif
 
 // Define probe switch input pin.
 #if PROBE_ENABLE
-#define PROBE_PIN   GPIO_NUM_32
+#define PROBE_PIN GPIO_NUM_23
 #endif
 
 #if KEYPAD_ENABLE
@@ -104,7 +104,7 @@ typedef union {
                 flood_on         :1,
                 stepper_enable_z :1,
                 stepper_enable_x :1,
-                stepper_enable_y :1,
+                stepper_enable_y :0,
                 reserved         :1;
     };
 } ioexpand_t;
