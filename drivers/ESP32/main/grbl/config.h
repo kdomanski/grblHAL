@@ -467,12 +467,12 @@
 // Max number of entries in log for PID data reporting, to be used for tuning
 //#define PID_LOG 1000 // Default disabled. Uncomment to enable.
 
-//#define DEFAULT_X_STEPS_PER_MM 250.0f
+#define DEFAULT_X_STEPS_PER_MM 800.0f
 //#define DEFAULT_Y_STEPS_PER_MM 250.0f
-//#define DEFAULT_Z_STEPS_PER_MM 250.0f
-//#define DEFAULT_X_MAX_RATE 500.0f // mm/min
+#define DEFAULT_Z_STEPS_PER_MM 1600.0f
+#define DEFAULT_X_MAX_RATE 200.0f // mm/min
 //#define DEFAULT_Y_MAX_RATE 500.0f // mm/min
-//#define DEFAULT_Z_MAX_RATE 500.0f // mm/min
+#define DEFAULT_Z_MAX_RATE 300.0f // mm/min
 //#define DEFAULT_X_ACCELERATION (10.0*60*60) // 10*60*60 mm/min^2 = 10 mm/sec^2
 //#define DEFAULT_Y_ACCELERATION (10.0*60*60) // 10*60*60 mm/min^2 = 10 mm/sec^2
 //#define DEFAULT_Z_ACCELERATION (10.0*60*60) // 10*60*60 mm/min^2 = 10 mm/sec^2
@@ -503,7 +503,7 @@
 //#define DEFAULT_INVERT_PROBE_PIN
 //#define DEFAULT_LASER_MODE
 //#define DEFAULT_LATHE_MODE
-//#define DEFAULT_HOMING_ENABLE
+#define DEFAULT_HOMING_ENABLE
 //#define DEFAULT_HOMING_ALLOW_MANUAL
 //#define DEFAULT_HOMING_DIR_MASK 0 // move positive dir
 //#define DEFAULT_HOMING_FEED_RATE 25.0f // mm/min
@@ -560,8 +560,8 @@
 // will not be affected by pin sharing.
 // NOTE: Defaults are set for a traditional 3-axis CNC machine. Z-axis first to clear, followed by X & Y.
 
-//#define HOMING_CYCLE_0 (Z_AXIS_BIT)             // REQUIRED: First move Z to clear workspace.
-//#define HOMING_CYCLE_1 (X_AXIS_BIT|Y_AXIS_BIT)  // OPTIONAL: Then move X,Y at the same time.
+#define HOMING_CYCLE_0 (Z_AXIS_BIT)               // REQUIRED: First move Z to clear workspace.
+#define HOMING_CYCLE_1 (X_AXIS_BIT)               // OPTIONAL: Then move X,Y at the same time.
 //#define HOMING_CYCLE_2 0                        // OPTIONAL: Uncomment and add axes mask to enable
 #if N_AXIS > 3
 //#define HOMING_CYCLE_3 0                        // OPTIONAL: Uncomment and add axes mask to enable
