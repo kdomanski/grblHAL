@@ -116,6 +116,7 @@ static pwm_ramp_t pwm_ramp;
 
 typedef enum {
     Input_Probe = 0,
+    Input_EStop,
     Input_Reset,
     Input_FeedHold,
     Input_CycleStart,
@@ -243,8 +244,12 @@ const io_stream_t bluetooth_stream = {
 #define INPUT_GROUP_MPG     (1 << 4)
 
 state_signal_t inputpin[] = {
-#ifdef RESET_PIN
+#if ESTOP_ENABLE
+    { .id = Input_EStop,        .pin = ESTOP_PIN,       .group = INPUT_GROUP_CONTROL },
+#else
+    #ifdef RESET_PIN
     { .id = Input_Reset,        .pin = RESET_PIN,       .group = INPUT_GROUP_CONTROL },
+    #endif
 #endif
 #ifdef FEED_HOLD_PIN
     { .id = Input_FeedHold,     .pin = FEED_HOLD_PIN,   .group = INPUT_GROUP_CONTROL },
@@ -778,6 +783,9 @@ inline IRAM_ATTR static control_signals_t systemGetState (void)
 #ifdef RESET_PIN
     signals.reset = gpio_get_level(RESET_PIN);
 #endif
+#ifdef ESTOP_PIN
+    signals.estop = gpio_get_level(ESTOP_PIN);
+#endif
 #ifdef FEED_HOLD_PIN
     signals.feed_hold = gpio_get_level(FEED_HOLD_PIN);
 #endif
@@ -1219,12 +1227,19 @@ static void settings_changed (settings_t *settings)
             config.intr_type = GPIO_INTR_DISABLE;
 
             switch(inputpin[--i].id) {
-
+#if ESTOP_ENABLE
+                case Input_EStop:
+                    pullup = !settings->control_disable_pullup.e_stop;
+                    inputpin[i].invert = control_fei.estop;
+                    config.intr_type = inputpin[i].invert ? GPIO_INTR_NEGEDGE : GPIO_INTR_POSEDGE;
+                    break;
+#else
                 case Input_Reset:
                     pullup = !settings->control_disable_pullup.reset;
                     inputpin[i].invert = control_fei.reset;
                     config.intr_type = inputpin[i].invert ? GPIO_INTR_NEGEDGE : GPIO_INTR_POSEDGE;
                     break;
+#endif
 
                 case Input_FeedHold:
                     pullup = !settings->control_disable_pullup.feed_hold;
@@ -1583,6 +1598,9 @@ bool driver_init (void)
     hal.driver_cap.control_pull_up = On;
     hal.driver_cap.limits_pull_up = On;
     hal.driver_cap.probe_pull_up = On;
+#if ESTOP_ENABLE
+    hal.signals_cap.e_stop = On;
+#endif
 #ifdef SAFETY_DOOR_PIN
     hal.signals_cap.safety_door_ajar = On;
 #endif

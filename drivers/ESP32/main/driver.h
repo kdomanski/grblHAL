@@ -147,6 +147,16 @@ static const DRAM_ATTR float FZERO = 0.0f;
 #define KEYPAD_ENABLE    0
 #endif
 
+#ifndef ESTOP_ENABLE
+  #if COMPATIBILITY_LEVEL <= 1
+    #define ESTOP_ENABLE    1
+  #else
+    #define ESTOP_ENABLE    0
+  #endif
+#elif ESTOP_ENABLE && COMPATIBILITY_LEVEL > 1
+  #warning "Enabling ESTOP may not work with all senders!"
+#endif
+
 #ifndef NETWORKING_ENABLE
 #define WIFI_ENABLE      0
 #define HTTP_ENABLE      0

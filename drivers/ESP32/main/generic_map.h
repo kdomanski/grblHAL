@@ -70,7 +70,7 @@
 #define COOLANT_MIST_PIN    GPIO_NUM_21
 
 // Define user-control CONTROLs (cycle start, reset, feed hold) input pins.
-#define RESET_PIN       GPIO_NUM_22
+#define ESTOP_PIN       GPIO_NUM_22
 #define FEED_HOLD_PIN   GPIO_NUM_36
 #define CYCLE_START_PIN GPIO_NUM_39
 #ifdef ENABLE_SAFETY_DOOR_INPUT_PIN

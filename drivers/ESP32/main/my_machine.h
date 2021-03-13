@@ -32,6 +32,8 @@
 // Configuration
 // Uncomment to enable, for some a value > 1 may be assigned, if so the default value is shown.
 
+#define ESTOP_ENABLE 1
+
 //#define NETWORKING_ENABLE  1 // WiFi streaming. Requires networking plugin.
 #if NETWORKING_ENABLE
 //#define WIFI_SOFTAP        1 // Use Soft AP mode for WiFi.
